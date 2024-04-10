@@ -49,15 +49,15 @@ stages:
           - task: AzureCLI@2
             displayName: Set extraction variables
             inputs:
-              azureSubscription: "$(SERVICE_CONNECTION_NAME)"
-              scriptType: pscore
-              scriptLocation: inlineScript
+              azureSubscription: 'Azure Devtest 1(0ec9b781-2a5e-46c9-b6ae-48015aba71cd)'
+              scriptType: 'pscore'
+              scriptLocation: 'inlineScript'
               inlineScript: |
                 Set-StrictMode -Version Latest
                 $ErrorActionPreference = "Stop"
                 $VerbosePreference = "Continue"
                 $InformationPreference = "Continue"
-
+                
                 Write-Host "##vso[task.setvariable issecret=true;variable=AZURE_BEARER_TOKEN]$(az account get-access-token --query "accessToken" --output tsv)"
                 Write-Host "##vso[task.setvariable issecret=true;variable=AZURE_CLIENT_ID]$env:servicePrincipalId"
                 Write-Host "##vso[task.setvariable issecret=true;variable=AZURE_CLIENT_SECRET]$env:servicePrincipalKey"
@@ -78,7 +78,6 @@ stages:
                 else {
                   Write-Host "AZURE_SUBSCRIPTION_ID is already set to: $env:AZURE_SUBSCRIPTION_ID"
                 }
-
               addSpnToEnvironment: true
               failOnStandardError: true
           - task: PowerShell@2

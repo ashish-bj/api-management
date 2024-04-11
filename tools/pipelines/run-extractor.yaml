@@ -234,6 +234,7 @@ stages:
                   Write-Host "Creating and switching to new branch: $newBranchName"
                   git checkout -b $newBranchName
                   Write-Host "Checking for artifacts at: $artifactsPath"
+                  Get-ChildItem -Path $artifactsPath -ErrorAction SilentlyContinue
                   $items = Get-ChildItem -Path $artifactsPath -ErrorAction SilentlyContinue
                   if ($items -eq $null -or $items.Length -eq 0) {
                     Write-Host "No artifacts found at path: $artifactsPath. Exiting..."

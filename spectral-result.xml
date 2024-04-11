@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <testsuites>
+<testsuite package="org.spectral" time="0" tests="1" errors="0" failures="1" name="d:/a/1/a/artifacts/apis/demo/specification.yaml">
+<testcase time="0" name="org.spectral.rule-important-info-fields(#/info/description)" classname="d:/a/1/a/artifacts/apis/demo/specification"><failure message="Missing the description"><![CDATA[line 4, col 16, Missing the description (rule-important-info-fields) at path #/info/description]]></failure></testcase>
+</testsuite>
 <testsuite package="org.spectral" time="0" tests="1" errors="0" failures="1" name="d:/a/1/a/artifacts/apis/test/specification.yaml">
 <testcase time="0" name="org.spectral.rule-important-info-fields(#/info/description)" classname="d:/a/1/a/artifacts/apis/test/specification"><failure message="Missing the description"><![CDATA[line 4, col 16, Missing the description (rule-important-info-fields) at path #/info/description]]></failure></testcase>
 </testsuite>

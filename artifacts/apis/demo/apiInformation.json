@@ -3,9 +3,9 @@
     "apiRevision": "1",
     "authenticationSettings": {},
     "description": "",
-    "displayName": "test",
+    "displayName": "demo",
     "isCurrent": true,
-    "path": "test",
+    "path": "demo",
     "protocols": [
       "https"
     ],

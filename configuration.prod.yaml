@@ -1,0 +1,6 @@
+apimServiceName: api-prod-aj
+namedValues:
+loggers:
+diagnostics:
+backends:
+apis:

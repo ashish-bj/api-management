@@ -222,6 +222,9 @@ stages:
                   $newBranchName = "update-artifacts-$(Build.BuildId)"
                   $targetPath = "$(Agent.TempDirectory)\api-management"
                   $artifactsPath = "$(Build.ArtifactStagingDirectory)\artifacts"
+
+                  git config --global user.email "ashishjadhav20@gmail.com"
+                  git config --global user.name "ashish-bj"
                   
                   Write-Host "Cloning repository..."
                   git clone --branch $mainBranchName $authRepositoryUrl $targetPath
@@ -258,7 +261,7 @@ stages:
                   Write-Host "Pushing new branch to remote..."
                   git push --set-upstream origin $newBranchName
                   
-                  Pop-Location
-                pwsh: true
+                  #Pop-Location
+                #pwsh: true
             env:
                 GitHub_Token: $(GitHub_Token)    

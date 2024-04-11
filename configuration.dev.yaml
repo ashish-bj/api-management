@@ -1,0 +1,6 @@
+apimServiceName: api-dev-aj
+namedValues:
+loggers:
+diagnostics:
+backends:
+apis:

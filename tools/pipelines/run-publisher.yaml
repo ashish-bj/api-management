@@ -47,9 +47,9 @@ stages:
         displayName: Push changes to Prod APIM
         variables:
           #setting the testSecretValue to the prod resource group name as an example
-          testSecretValue: $(RESOURCE_GROUP_NAME_Prod)
+          testSecretValue: $(RESOURCE_GROUP_NAME)
         pool:
-          vmImage: ubuntu-latest
+          vmImage: windows-latest
         # creates an environment if it doesn't exist
         environment: 'Prod'
         strategy:
@@ -60,7 +60,7 @@ stages:
                  - template: run-publisher-with-env.yaml
                    parameters:
                      API_MANAGEMENT_SERVICE_OUTPUT_FOLDER_PATH: ${{ parameters.API_MANAGEMENT_SERVICE_OUTPUT_FOLDER_PATH }}
-                     RESOURCE_GROUP_NAME : $(RESOURCE_GROUP_NAME_Prod)
+                     RESOURCE_GROUP_NAME : $(RESOURCE_GROUP_NAME)
                      CONFIGURATION_YAML_PATH:  $(Build.SourcesDirectory)/configuration.prod.yaml
                      ENVIRONMENT: "Prod"
                      COMMIT_ID: ${{ parameters.COMMIT_ID }}

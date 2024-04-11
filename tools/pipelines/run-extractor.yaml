@@ -250,7 +250,8 @@ stages:
                   }
                   Write-Host "Staging all changes..."
                   git add .
-                  
+                  git status
+                  dir
                   Write-Host "Committing changes..."
                   git commit -m "Push artifacts from build $(Build.BuildId)"
                   

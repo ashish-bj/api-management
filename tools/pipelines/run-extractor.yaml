@@ -210,13 +210,13 @@ stages:
                   $email = "ashishjadhav20@gmail.com"
                   $username = "ashish-bj"
                   # Repository details
-                  $repositoryUrl = "https://github.azc.ext.hp.com/csit-cdax/POCAPIOps.git"
+                  $repositoryUrl = "https://github.com/ashish-bj/api-management.git"
                   # Embed the GitHub token in the URL for authentication
                   $authRepositoryUrl = $repositoryUrl -replace 'https://', "https://$githubToken@"
                   $mainBranchName = "main"
                   $newBranchName = "update-artifacts-$(Build.BuildId)"
-                  $targetPath = "$(Agent.TempDirectory)/POCAPIOps"
-                  $artifactsPath = "$(Build.ArtifactStagingDirectory)/artifacts"
+                  $targetPath = "$(Agent.TempDirectory)\api-management"
+                  $artifactsPath = "$(Build.ArtifactStagingDirectory)\artifacts"
                   
                   Write-Host "Cloning repository..."
                   git clone --branch $mainBranchName $authRepositoryUrl $targetPath

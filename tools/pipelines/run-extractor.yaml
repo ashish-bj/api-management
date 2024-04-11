@@ -181,6 +181,7 @@ stages:
             displayName: Publish pipeline artifact
             inputs:
               targetPath: '$(Build.ArtifactStagingDirectory)'
+              artifact: 'artifacts-from-portal'
               publishLocation: 'pipeline'
   - stage: create_template_branch
     displayName: Create template branch
@@ -196,6 +197,11 @@ stages:
               source: current
               artifactName: artifacts-from-portal
               targetPath: $(Pipeline.Workspace)/artifacts
+          - task: PowerShell@2
+            inputs:
+              targetType: 'inline'
+              script: 'get-childitem -path $(Pipeline.Workspace)/artifacts -recurse'
+          
           - task: PowerShell@2
             displayName: Create pull request
             inputs:

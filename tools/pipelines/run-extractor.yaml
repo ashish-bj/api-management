@@ -180,9 +180,8 @@ stages:
           - task: PublishPipelineArtifact@1
             displayName: Publish pipeline artifact
             inputs:
-              targetPath: "$(Build.ArtifactStagingDirectory)"
-              artifactType: pipeline
-              artifactName: artifacts-from-portal
+              targetPath: '$(Build.ArtifactStagingDirectory)'
+              publishLocation: 'pipeline'
   - stage: create_template_branch
     displayName: Create template branch
     jobs:
@@ -196,7 +195,7 @@ stages:
             inputs:
               source: current
               artifactName: artifacts-from-portal
-              targetPath: $(Pipeline.Workspace)/artifacts-from-portal
+              targetPath: $(Pipeline.Workspace)/artifacts
           - task: PowerShell@2
             displayName: Create pull request
             inputs:

@@ -253,4 +253,4 @@ stages:
                   Pop-Location
                 pwsh: true
             env:
-                GitHub_Token: $(GitHub.Token)    
+                GitHub_Token: $(GitHub_Token)    

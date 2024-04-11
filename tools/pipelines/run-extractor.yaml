@@ -242,6 +242,7 @@ stages:
                   }
                   Write-Host "Copying artifacts from $artifactsPath to $targetPath"
                   Copy-Item -Path "$artifactsPath/*" -Destination "." -Recurse -Verbose
+                  git status --porcelain
                   $changes = git status --porcelain
                   if ([string]::IsNullOrWhiteSpace($changes)) {
                     Write-Host "No changes to commit after copying artifacts. Exiting..."

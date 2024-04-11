@@ -10,4 +10,4 @@ apis:
   
   - name: demo
     properties:
-      serviceUrl: https://bing.com
+      serviceUrl: https://google.com

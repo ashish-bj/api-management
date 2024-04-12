@@ -6,8 +6,8 @@ backends:
 apis:
   - name: test
     properties:
-      serviceUrl: https://bing.com
+      serviceUrl: https://google.com
   
   - name: demo
     properties:
-      serviceUrl: https://google.com
+      serviceUrl: https://bing.com

@@ -1,0 +1,34 @@
+{
+  "properties": {
+    "backend": {
+      "request": {
+        "dataMasking": {
+          "queryParams": [
+            {
+              "mode": "Hide",
+              "value": "*"
+            }
+          ]
+        }
+      }
+    },
+    "frontend": {
+      "request": {
+        "dataMasking": {
+          "queryParams": [
+            {
+              "mode": "Hide",
+              "value": "*"
+            }
+          ]
+        }
+      }
+    },
+    "logClientIp": true,
+    "loggerId": "/subscriptions/0ec9b781-2a5e-46c9-b6ae-48015aba71cd/resourceGroups/api_management/providers/Microsoft.ApiManagement/service/api-dev-abj/loggers/azuremonitor",
+    "sampling": {
+      "percentage": 100,
+      "samplingType": "Fixed"
+    }
+  }
+}

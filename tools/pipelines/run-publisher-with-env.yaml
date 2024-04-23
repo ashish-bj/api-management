@@ -32,17 +32,17 @@ steps:
   - task: AzureCLI@2
     displayName: Set publishing variables
     inputs:
-      azureSubscription: "$(SERVICE_CONNECTION_NAME)"
-      scriptType: pscore
-      scriptLocation: inlineScript
+      azureSubscription: 'AzureDevtest'
+      scriptType: 'pscore'
+      scriptLocation: 'inlineScript'
       inlineScript: |
         Set-StrictMode -Version Latest
         $ErrorActionPreference = "Stop"
         $VerbosePreference = "Continue"
         $InformationPreference = "Continue"
-
+        
         Write-Host "##vso[task.setvariable issecret=true;variable=AZURE_BEARER_TOKEN]$(az account get-access-token --query "accessToken" --output tsv)"
-        write-host $AZURE_BEARER_TOKEN
+        #write-host $AZURE_BEARER_TOKEN
         Write-Host "##vso[task.setvariable issecret=true;variable=AZURE_CLIENT_ID]$env:servicePrincipalId"
         Write-Host "##vso[task.setvariable issecret=true;variable=AZURE_CLIENT_SECRET]$env:servicePrincipalKey"
         Write-Host "##vso[task.setvariable issecret=true;variable=AZURE_TENANT_ID]$env:tenantId"

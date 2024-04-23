@@ -1,0 +1,183 @@
+openapi: 3.0.1
+info:
+  title: openuidconfiguration
+  description: ''
+  version: '1.0'
+servers:
+  - url: http://api-dev-abj.azure-api.net/openuid
+  - url: https://api-dev-abj.azure-api.net/openuid
+paths:
+  /openuid-configuration:
+    get:
+      summary: openuid-config
+      description: openuid-config
+      operationId: openuid-config
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              example:
+                issuer: https://login-itg.external.hp.com
+                authorization_endpoint: https://login-itg.external.hp.com/as/authorization.oauth2
+                token_endpoint: https://login-itg.external.hp.com/as/token.oauth2
+                revocation_endpoint: https://login-itg.external.hp.com/as/revoke_token.oauth2
+                userinfo_endpoint: https://login-itg.external.hp.com/idp/userinfo.openid
+                introspection_endpoint: https://login-itg.external.hp.com/as/introspect.oauth2
+                jwks_uri: https://login-itg.external.hp.com/ext/oauth/jwks
+                registration_endpoint: https://login-itg.external.hp.com/as/clients.oauth2
+                ping_revoked_sris_endpoint: https://login-itg.external.hp.com/pf-ws/rest/sessionMgmt/revokedSris
+                ping_end_session_endpoint: https://login-itg.external.hp.com/idp/startSLO.ping
+                device_authorization_endpoint: https://login-itg.external.hp.com/as/device_authz.oauth2
+                scopes_supported:
+                  - APIFEDUSER
+                  - address
+                  - c
+                  - test
+                  - openid
+                  - default_scope
+                  - givenName
+                  - profile
+                  - cn
+                  - FactoryODD_Scope
+                  - WINDCHILL_READ
+                  - /sap/bc/ZOS_Entitlement
+                  - employeeNumber
+                  - ntUserDomainId
+                  - HP2B_ResourceAccess
+                  - group_scope
+                  - phone
+                  - collabnet
+                  - sn
+                  - openid_group
+                  - email
+                  - userPrincipalName
+                claims_supported:
+                  - c
+                  - cn
+                  - email
+                  - employeeNumber
+                  - givenName
+                  - ntUserDomainId
+                  - pi.sri
+                  - sn
+                  - sub
+                  - uid
+                response_types_supported:
+                  - code
+                  - token
+                  - id_token
+                  - code token
+                  - code id_token
+                  - token id_token
+                  - code token id_token
+                response_modes_supported:
+                  - fragment
+                  - query
+                  - form_post
+                grant_types_supported:
+                  - implicit
+                  - authorization_code
+                  - refresh_token
+                  - password
+                  - client_credentials
+                  - urn:pingidentity.com:oauth2:grant_type:validate_bearer
+                  - urn:ietf:params:oauth:grant-type:jwt-bearer
+                  - urn:ietf:params:oauth:grant-type:saml2-bearer
+                  - urn:ietf:params:oauth:grant-type:device_code
+                  - urn:ietf:params:oauth:grant-type:token-exchange
+                  - urn:openid:params:grant-type:ciba
+                subject_types_supported:
+                  - public
+                  - pairwise
+                id_token_signing_alg_values_supported:
+                  - none
+                  - HS256
+                  - HS384
+                  - HS512
+                  - RS256
+                  - RS384
+                  - RS512
+                  - ES256
+                  - ES384
+                  - ES512
+                  - PS256
+                  - PS384
+                  - PS512
+                token_endpoint_auth_methods_supported:
+                  - client_secret_basic
+                  - client_secret_post
+                  - private_key_jwt
+                token_endpoint_auth_signing_alg_values_supported:
+                  - RS256
+                  - RS384
+                  - RS512
+                  - ES256
+                  - ES384
+                  - ES512
+                  - PS256
+                  - PS384
+                  - PS512
+                claim_types_supported:
+                  - normal
+                claims_parameter_supported: false
+                request_parameter_supported: true
+                request_uri_parameter_supported: false
+                request_object_signing_alg_values_supported:
+                  - RS256
+                  - RS384
+                  - RS512
+                  - ES256
+                  - ES384
+                  - ES512
+                  - PS256
+                  - PS384
+                  - PS512
+                id_token_encryption_alg_values_supported:
+                  - dir
+                  - A128KW
+                  - A192KW
+                  - A256KW
+                  - A128GCMKW
+                  - A192GCMKW
+                  - A256GCMKW
+                  - ECDH-ES
+                  - ECDH-ES+A128KW
+                  - ECDH-ES+A192KW
+                  - ECDH-ES+A256KW
+                  - RSA-OAEP
+                id_token_encryption_enc_values_supported:
+                  - A128CBC-HS256
+                  - A192CBC-HS384
+                  - A256CBC-HS512
+                  - A128GCM
+                  - A192GCM
+                  - A256GCM
+                backchannel_authentication_endpoint: https://login-itg.external.hp.com/as/bc-auth.ciba
+                backchannel_token_delivery_modes_supported:
+                  - poll
+                  - ping
+                backchannel_authentication_request_signing_alg_values_supported:
+                  - RS256
+                  - RS384
+                  - RS512
+                  - ES256
+                  - ES384
+                  - ES512
+                  - PS256
+                  - PS384
+                  - PS512
+                backchannel_user_code_parameter_supported: false
+components:
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      name: Ocp-Apim-Subscription-Key
+      in: header
+    apiKeyQuery:
+      type: apiKey
+      name: subscription-key
+      in: query
+security:
+  - apiKeyHeader: [ ]
+  - apiKeyQuery: [ ]

@@ -1,4 +1,4 @@
-apimServiceName: api-prod-aj
+apimServiceName: api-prod-abj
 namedValues:
 loggers:
 diagnostics:

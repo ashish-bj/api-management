@@ -1,0 +1,8 @@
+{
+  "properties": {
+    "displayName": "hello_named_value",
+    "secret": false,
+    "tags": [],
+    "value": "hello"
+  }
+}

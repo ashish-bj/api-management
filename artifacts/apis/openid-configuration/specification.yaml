@@ -1,0 +1,38 @@
+openapi: 3.0.1
+info:
+  title: openid-configuration
+  description: ''
+  version: '1.0'
+servers:
+  - url: http://api-dev-abj.azure-api.net/openuidconfig
+  - url: https://api-dev-abj.azure-api.net/openuidconfig
+paths:
+  /.well-known/openid-configuration:
+    get:
+      summary: openid-configuration
+      description: openid-configuration
+      operationId: openid-configuration
+      responses:
+        '200':
+          description: ''
+  /keys:
+    get:
+      summary: keys
+      description: keys
+      operationId: keys
+      responses:
+        '200':
+          description: ''
+components:
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      name: Ocp-Apim-Subscription-Key
+      in: header
+    apiKeyQuery:
+      type: apiKey
+      name: subscription-key
+      in: query
+security:
+  - apiKeyHeader: [ ]
+  - apiKeyQuery: [ ]

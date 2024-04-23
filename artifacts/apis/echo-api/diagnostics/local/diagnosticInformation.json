@@ -1,0 +1,39 @@
+{
+  "properties": {
+    "alwaysLog": "allErrors",
+    "backend": {
+      "request": {
+        "body": {
+          "bytes": 0
+        },
+        "headers": []
+      },
+      "response": {
+        "body": {
+          "bytes": 0
+        },
+        "headers": []
+      }
+    },
+    "frontend": {
+      "request": {
+        "body": {
+          "bytes": 0
+        },
+        "headers": []
+      },
+      "response": {
+        "body": {
+          "bytes": 0
+        },
+        "headers": []
+      }
+    },
+    "logClientIp": true,
+    "sampling": {
+      "percentage": 100,
+      "samplingType": "Fixed"
+    },
+    "verbosity": "information"
+  }
+}

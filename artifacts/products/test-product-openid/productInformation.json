@@ -1,9 +1,0 @@
-{
-  "properties": {
-    "approvalRequired": false,
-    "description": "product for openid",
-    "displayName": "test_product_openid",
-    "state": "notPublished",
-    "subscriptionRequired": true
-  }
-}

@@ -1,9 +1,0 @@
-{
-  "properties": {
-    "approvalRequired": false,
-    "description": "for openid config",
-    "displayName": "test_product_openid-config",
-    "state": "notPublished",
-    "subscriptionRequired": true
-  }
-}

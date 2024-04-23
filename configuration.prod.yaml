@@ -4,10 +4,3 @@ loggers:
 diagnostics:
 backends:
 apis:
-  - name: test
-    properties:
-      serviceUrl: https://google.com
-  
-  - name: demo
-    properties:
-      serviceUrl: https://bing.com

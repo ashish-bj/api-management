@@ -1,0 +1,8 @@
+{
+  "properties": {
+    "displayName": "openuid-value",
+    "secret": false,
+    "tags": [],
+    "value": "openuid"
+  }
+}

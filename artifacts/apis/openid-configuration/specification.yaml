@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: openid-configuration
+  title: openid-configuration1
   description: ''
   version: '1.0'
 servers:

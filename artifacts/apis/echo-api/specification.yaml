@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: apimanagementv999
+  title: apimanagement1
   version: '1.0'
 servers:
   - url: https://api-dev-abj.azure-api.net/echo

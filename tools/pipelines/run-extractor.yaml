@@ -25,6 +25,9 @@ parameters:
     values:
       - Extract All
       - configuration.extractor.yaml
+      - configuration.extractor_helloapi.yaml
+      - configuration.extractor_openuid.yaml
+      - configuration.extractor_openuidconfig.yaml
   - name: API_SPECIFICATION_FORMAT
     type: string
     displayName: API Specification Format

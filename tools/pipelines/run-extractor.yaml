@@ -2,7 +2,7 @@ parameters:
   - name: APIM_INSTANCE_NAME
     displayName: APIM instance name
     type: string
-    default: api-dev-aj
+    default: api-dev-abj
   - name: RESOURCE_GROUP_NAME
     displayName: APIM instance resource group name
     type: string

@@ -7,7 +7,7 @@ from langgraph import LangGraph
 
 # Fetch logs from Azure DevOps using REST API
 def get_pipeline_logs(organization, project, build_id, pat):
-    url = f"https://dev.azure.com/{organization}/{project}/_apis/build/builds/{build_id}/logs?api-version=6.0"
+    url = f"https://dev.azure.com/ashishjadhav0331/ashishjadhav/_apis/build/builds/17/logs?api-version=6.0"
     headers = {
         "Content-Type": "application/json",
         "Authorization": f"Basic {pat}"
@@ -29,7 +29,7 @@ def cleanse_logs(log_data):
 
 # Set up Langchain for log analysis
 def analyze_logs_with_langchain(logs):
-    openai_api_key = os.getenv("OPENAI_API_KEY")  # Ensure the API key is set in the environment variables
+    openai_api_key = "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"  # Ensure the API key is set in the environment variables
     llm = OpenAI(api_key=openai_api_key)
 
     log_analysis_prompt = """
@@ -63,7 +63,7 @@ def main():
     organization = os.getenv("AZURE_ORG")  # Set this in your pipeline environment
     project = os.getenv("AZURE_PROJECT")  # Set this in your pipeline environment
     build_id = os.getenv("BUILD_ID")  # Pass the build ID dynamically in the pipeline
-    pat = os.getenv("AZURE_PAT")  # Set the Personal Access Token (PAT) for Azure DevOps
+    pat = "DkfCNB8KfxphK0ELJOS0F3llAos5wAeMoVwSUKa8aoL06rnuHaEaJQQJ99BCACAAAAAAAAAAAAASAZDO22co"  # Set the Personal Access Token (PAT) for Azure DevOps
 
     logs = get_pipeline_logs(organization, project, build_id, pat)
     cleaned_logs = cleanse_logs(logs)

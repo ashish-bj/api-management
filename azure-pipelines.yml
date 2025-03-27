@@ -29,3 +29,4 @@ jobs:
       - script: |
           python log_analysis_script.py
         displayName: 'Run Python Log Analysis Script'
+        enabled: false

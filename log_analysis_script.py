@@ -60,9 +60,9 @@ def create_log_graph(logs):
 
 def main():
     # Fetch and analyze pipeline logs from Azure DevOps
-    organization = os.getenv("AZURE_ORG")  # Set this in your pipeline environment
-    project = os.getenv("AZURE_PROJECT")  # Set this in your pipeline environment
-    build_id = os.getenv("BUILD_ID")  # Pass the build ID dynamically in the pipeline
+    organization = "ashishjadhav0331"  # Set this in your pipeline environment
+    project = "ashishjadhav"  # Set this in your pipeline environment
+    build_id = "17"  # Pass the build ID dynamically in the pipeline
     pat = "DkfCNB8KfxphK0ELJOS0F3llAos5wAeMoVwSUKa8aoL06rnuHaEaJQQJ99BCACAAAAAAAAAAAAASAZDO22co"  # Set the Personal Access Token (PAT) for Azure DevOps
 
     logs = get_pipeline_logs(organization, project, build_id, pat)

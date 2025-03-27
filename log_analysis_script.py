@@ -29,7 +29,7 @@ def cleanse_logs(log_data):
 
 # Set up Langchain for log analysis
 def analyze_logs_with_langchain(logs):
-    openai_api_key = "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"  # Ensure the API key is set in the environment variables
+    openai_api_key = os.getenv("OPENAI_API_KEY")  # Ensure the API key is set in the environment variables
     llm = OpenAI(api_key=openai_api_key)
 
     log_analysis_prompt = """

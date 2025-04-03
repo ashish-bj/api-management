@@ -90,7 +90,7 @@ message = client.beta.threads.messages.create(
 run = client.beta.threads.runs.create_and_poll(
     thread_id=thread.id,  # ID of the thread
     assistant_id=assistant.id,  # ID of the assistant
-    instructions="Provide short summary with what has changed, what code is doing, potential impacts of the code, highlight syntax errors, explain type of code, highlight if best practices are not followed, check for potential bugs or vulernabilities, and highlight if passwords are hardcoded"  # Instructions for the assistant
+    instructions="Provide summary with what has changed in code, what code will be doing, potential impacts of the code, highlight syntax errors, explain type of code, highlight if best practices are not followed, check for potential bugs or vulernabilities, and highlight if passwords are hardcoded"  # Instructions for the assistant
 )
 
 if run.status == "completed":

@@ -108,7 +108,7 @@ if run.status == "completed":
             print(content)
             # Parse the content to extract explanation, cause, and solution
             if "**File Name:**" in content:
-                file_mame = content.find("**File Name:**") + len("**File Name:**")
+                file_name = content.find("**File Name:**") + len("**File Name:**")
                 file_changes = content.find("**Changes Introduced:**")
                 potential_impact = content.find("**Potential Impacts**")
                 # output_behaviour = content.fine("**Output Behavior**")

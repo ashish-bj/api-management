@@ -114,61 +114,61 @@ if run.status == "completed":
                 content = "\n".join(str(item) for item in content)  # Join list items into a single string
             content = str(content)  # Convert content to string
             print(content)
-            # Parse the content to extract explanation, cause, and solution
-            # if "File:" in content:
-    #             file_start = content.find("File:") + len("File:")
-    #             changes_start = content.find("Changes:")
-    #             summary_start = content.find("Summary:")
-    #             #potential_impact = content.find("**Potential Impacts**")
-    #             # output_behaviour = content.fine("**Output Behavior**")
-    #             # considerations = content.fine("**Contextual Considerations**")
-    #             # best_practice = content.fine("**Best Practices Check**")
-    #             # hardcoding = content.fine("**Hardcoded Passwords**)
-    #             # error_handling = content.fine("**Error Handling**")                
-    #             # code_type = content.find("**Code Type**")
-                
-    #             assistant_output["assistant_output"]["files"] = content[file_start:changes_start].strip().replace("\\n", "\n").replace("\\'", "'")
-    #             assistant_output["assistant_output"]["summary"] = content[summary_start + len("Summary:"):].strip().replace("\\n", "\n").replace("\\'", "'")
-    #             #assistant_output["assistant_output"]["summary"] = content[potential_impact + len("**Potential Impacts**"):].strip().replace("\\n", "\n").replace("\\'", "'")
-    #             print(assistant_output)
-    # # Write the assistant's output to a JSON file
-    # with open(output_file, "w") as file:
-    #     json.dump(assistant_output, file, indent=4)
-    # print(f"Output has been written to {output_file}")
+            Parse the content to extract explanation, cause, and solution
             if "File:" in content:
-                # Extract File: content
-                file_pattern = r"File:\s*([^\n]+)"
-                changes_pattern = r"Changes:\s*([^\[]+)"
-                summary_pattern = r"Summary:\s*([^\n]+)"
+                file_start = content.find("File:") + len("File:")
+                changes_start = content.find("Changes:")
+                summary_start = content.find("Summary:")
+                #potential_impact = content.find("**Potential Impacts**")
+                # output_behaviour = content.fine("**Output Behavior**")
+                # considerations = content.fine("**Contextual Considerations**")
+                # best_practice = content.fine("**Best Practices Check**")
+                # hardcoding = content.fine("**Hardcoded Passwords**)
+                # error_handling = content.fine("**Error Handling**")                
+                # code_type = content.find("**Code Type**")
                 
-                # Use regular expression to capture relevant sections
-                file_match = re.search(file_pattern, content)
-                changes_match = re.search(changes_pattern, content)
-                summary_match = re.search(summary_pattern, content)
+                assistant_output["assistant_output"]["files"] = content[file_start:changes_start].strip().replace("\\n", "\n").replace("\\'", "'")
+                assistant_output["assistant_output"]["summary"] = content[summary_start + len("Summary:"):].strip().replace("\\n", "\n").replace("\\'", "'")
+                #assistant_output["assistant_output"]["summary"] = content[potential_impact + len("**Potential Impacts**"):].strip().replace("\\n", "\n").replace("\\'", "'")
+                print(assistant_output)
+    # Write the assistant's output to a JSON file
+    with open(output_file, "w") as file:
+        json.dump(assistant_output, file, indent=4)
+    print(f"Output has been written to {output_file}")
+            # if "File:" in content:
+            #     # Extract File: content
+            #     file_pattern = r"File:\s*([^\n]+)"
+            #     changes_pattern = r"Changes:\s*([^\[]+)"
+            #     summary_pattern = r"Summary:\s*([^\n]+)"
                 
-                # Extract the 'File:' content
-                if file_match and changes_match:
-                    file_content = file_match.group(1).strip().replace("\\n", "\n").replace("\\'", "'")
-                    assistant_output["assistant_output"]["files"] = file_content
+            #     # Use regular expression to capture relevant sections
+            #     file_match = re.search(file_pattern, content)
+            #     changes_match = re.search(changes_pattern, content)
+            #     summary_match = re.search(summary_pattern, content)
                 
-                # Extract 'Changes:' content and ensure it is displayed on separate lines
-                if changes_match:
-                    # Grab the changes content
-                    changes_content = changes_match.group(1).strip().replace("\\n", "\n").replace("\\'", "'")
+            #     # Extract the 'File:' content
+            #     if file_match and changes_match:
+            #         file_content = file_match.group(1).strip().replace("\\n", "\n").replace("\\'", "'")
+            #         assistant_output["assistant_output"]["files"] = file_content
+                
+            #     # Extract 'Changes:' content and ensure it is displayed on separate lines
+            #     if changes_match:
+            #         # Grab the changes content
+            #         changes_content = changes_match.group(1).strip().replace("\\n", "\n").replace("\\'", "'")
                     
-                    # Make the changes more readable
-                    # - Split by line and remove extra empty lines
-                    formatted_changes = "\n".join([line.strip() for line in changes_content.splitlines() if line.strip()])
+            #         # Make the changes more readable
+            #         # - Split by line and remove extra empty lines
+            #         formatted_changes = "\n".join([line.strip() for line in changes_content.splitlines() if line.strip()])
                     
-                    # Add bullet points to each line of the changes for clarity
-                    readable_changes = "\n".join([f"- {line}" for line in formatted_changes.splitlines()])
+            #         # Add bullet points to each line of the changes for clarity
+            #         readable_changes = "\n".join([f"- {line}" for line in formatted_changes.splitlines()])
                 
-                    assistant_output["assistant_output"]["changes"] = readable_changes
+            #         assistant_output["assistant_output"]["changes"] = readable_changes
                 
-                # Extract 'Summary:' content
-                if summary_match:
-                    summary_content = summary_match.group(1).strip().replace("\\n", "\n").replace("\\'", "'")
-                    assistant_output["assistant_output"]["summary"] = summary_content
+            #     # Extract 'Summary:' content
+            #     if summary_match:
+            #         summary_content = summary_match.group(1).strip().replace("\\n", "\n").replace("\\'", "'")
+            #         assistant_output["assistant_output"]["summary"] = summary_content
                 
-                # Print the assistant_output to verify the results
-                print(assistant_output) 
+            #     # Print the assistant_output to verify the results
+            #     print(assistant_output) 

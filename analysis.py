@@ -114,7 +114,7 @@ if run.status == "completed":
                 content = "\n".join(str(item) for item in content)  # Join list items into a single string
             content = str(content)  # Convert content to string
             print(content)
-            Parse the content to extract explanation, cause, and solution
+            #Parse the content to extract explanation, cause, and solution
             if "File:" in content:
                 file_start = content.find("File:") + len("File:")
                 changes_start = content.find("Changes:")

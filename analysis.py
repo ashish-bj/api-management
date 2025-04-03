@@ -93,6 +93,9 @@ run = client.beta.threads.runs.create_and_poll(
     instructions="Provide summary with what has changed in code, what code will be doing, potential impacts of the code, highlight syntax errors, explain type of code, highlight if best practices are not followed, check for potential bugs or vulernabilities, and highlight if passwords are hardcoded"  # Instructions for the assistant
 )
 
+# Define output file
+output_file = "output.json"
+
 if run.status == "completed":
     # Retrieve and save the assistant's response
     messages = client.beta.threads.messages.list(thread_id=thread.id)  # List all messages in the thread
@@ -128,3 +131,7 @@ if run.status == "completed":
                 assistant_output["assistant_output"]["summary"] = content[summary_start + len("Summary:"):].strip().replace("\\n", "\n").replace("\\'", "'")
                 #assistant_output["assistant_output"]["summary"] = content[potential_impact + len("**Potential Impacts**"):].strip().replace("\\n", "\n").replace("\\'", "'")
                 print(assistant_output)
+    # Write the assistant's output to a JSON file
+    with open(output_file, "w") as file:
+        json.dump(assistant_output, file, indent=4)
+    print(f"Output has been written to {output_file}")

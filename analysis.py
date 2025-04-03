@@ -96,5 +96,8 @@ run = client.beta.threads.runs.create_and_poll(
 if run.status == "completed":
     # Retrieve and save the assistant's response
     messages = client.beta.threads.messages.list(thread_id=thread.id)  # List all messages in the thread
-    
-    print(messages.content)
+
+   for msg in messages:
+    if msg.role == "assistant":
+        content = msg.content 
+        print(content)

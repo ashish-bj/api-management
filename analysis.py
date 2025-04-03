@@ -99,7 +99,7 @@ if run.status == "completed":
     assistant_output = {
         "assistant_output": {
             "files": "",  # Placeholder for error explanation
-            "changes": "",  # Placeholder for error cause
+            #"changes": "",  # Placeholder for error cause
             "summary": "",  # Placeholder for error solution
         }
     }
@@ -110,21 +110,21 @@ if run.status == "completed":
             if isinstance(content, list):
                 content = "\n".join(str(item) for item in content)  # Join list items into a single string
             content = str(content)  # Convert content to string
-            print("hi")
             print(content)
             # Parse the content to extract explanation, cause, and solution
-            # if "File:" in content:
-            #     file_name = content.find("File:") + len("File:")
-            #     file_changes = content.find("Changes:")
-            #     potential_impact = content.find("**Potential Impacts**")
-            #     # output_behaviour = content.fine("**Output Behavior**")
-            #     # considerations = content.fine("**Contextual Considerations**")
-            #     # best_practice = content.fine("**Best Practices Check**")
-            #     # hardcoding = content.fine("**Hardcoded Passwords**)
-            #     # error_handling = content.fine("**Error Handling**")                
-            #     # code_type = content.find("**Code Type**")
+            if "File:" in content:
+                file_start = content.find("File:") + len("File:")
+                changes_start = content.find("Changes:")
+                summary_start = content.find("Summary:")
+                #potential_impact = content.find("**Potential Impacts**")
+                # output_behaviour = content.fine("**Output Behavior**")
+                # considerations = content.fine("**Contextual Considerations**")
+                # best_practice = content.fine("**Best Practices Check**")
+                # hardcoding = content.fine("**Hardcoded Passwords**)
+                # error_handling = content.fine("**Error Handling**")                
+                # code_type = content.find("**Code Type**")
                 
-            #     assistant_output["assistant_output"]["filename"] = content[file_name:file_changes].strip().replace("\\n", "\n").replace("\\'", "'")
-            #     assistant_output["assistant_output"]["changes"] = content[file_changes + len("**Changes Introduced:**"):potential_impact].strip().replace("\\n", "\n").replace("\\'", "'")
-            #     assistant_output["assistant_output"]["summary"] = content[potential_impact + len("**Potential Impacts**"):].strip().replace("\\n", "\n").replace("\\'", "'")
-            #     print(assistant_output)
+                assistant_output["assistant_output"]["files"] = content[file_start:changes_start].strip().replace("\\n", "\n").replace("\\'", "'")
+                assistant_output["assistant_output"]["summary"] = content[summary_start + len("Summary:"):].strip().replace("\\n", "\n").replace("\\'", "'")
+                #assistant_output["assistant_output"]["summary"] = content[potential_impact + len("**Potential Impacts**"):].strip().replace("\\n", "\n").replace("\\'", "'")
+                print(assistant_output)

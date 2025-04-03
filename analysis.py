@@ -83,42 +83,48 @@ thread = client.beta.threads.create()
 message = client.beta.threads.messages.create(
     thread_id=thread.id,  # ID of the thread
     role="user",  # Role of the message sender
-    content=f"You are a codeowner reviewing a pull request. Analyze the following code changes and summarize them. Code is in array form derived from pull request files API: \"{changes}\""  # Content of the message
+    content=f"You are a codeowner reviewing a pull request. Analyze the following code changes and summarize them. Code is in array form derived from pull request files API. give summary in the following format: files, changes, summary: \"{changes}\""  # Content of the message
 )
 
 # Run the thread and poll for the result
 run = client.beta.threads.runs.create_and_poll(
     thread_id=thread.id,  # ID of the thread
     assistant_id=assistant.id,  # ID of the assistant
-    instructions="Explain what has changed, potential impacts, check for syntax, identify code type, check if best practice is not followed, check for potential bug or vulernability, and highlight if passwords are hardcoded"  # Instructions for the assistant
+    instructions="Provide concise and actionable insights. Short summary with what has changed, potential impacts, syntax, code type, check if best practice is not followed, check for potential bug or vulernability, and highlight if passwords are hardcoded"  # Instructions for the assistant
 )
 
 if run.status == "completed":
     # Retrieve and save the assistant's response
     messages = client.beta.threads.messages.list(thread_id=thread.id)  # List all messages in the thread
-
+    assistant_output = {
+        "assistant_output": {
+            "files": "",  # Placeholder for error explanation
+            "changes": "",  # Placeholder for error cause
+            "summary": "",  # Placeholder for error solution
+        }
+    }
     for msg in messages:
         if msg.role == "assistant":
             content = msg.content
-            #print(content)
+            print(content)
             if isinstance(content, list):
                 content = "\n".join(str(item) for item in content)  # Join list items into a single string
             content = str(content)  # Convert content to string
             print("hi")
             print(content)
             # Parse the content to extract explanation, cause, and solution
-            if "**File Name:**" in content:
-                file_name = content.find("**File Name:**") + len("**File Name:**")
-                file_changes = content.find("**Changes Introduced:**")
-                potential_impact = content.find("**Potential Impacts**")
-                # output_behaviour = content.fine("**Output Behavior**")
-                # considerations = content.fine("**Contextual Considerations**")
-                # best_practice = content.fine("**Best Practices Check**")
-                # hardcoding = content.fine("**Hardcoded Passwords**)
-                # error_handling = content.fine("**Error Handling**")                
-                # code_type = content.find("**Code Type**")
+            # if "**File Name:**" in content:
+            #     file_name = content.find("**File Name:**") + len("**File Name:**")
+            #     file_changes = content.find("**Changes Introduced:**")
+            #     potential_impact = content.find("**Potential Impacts**")
+            #     # output_behaviour = content.fine("**Output Behavior**")
+            #     # considerations = content.fine("**Contextual Considerations**")
+            #     # best_practice = content.fine("**Best Practices Check**")
+            #     # hardcoding = content.fine("**Hardcoded Passwords**)
+            #     # error_handling = content.fine("**Error Handling**")                
+            #     # code_type = content.find("**Code Type**")
                 
-                assistant_output["assistant_output"]["filename"] = content[file_name:file_changes].strip().replace("\\n", "\n").replace("\\'", "'")
-                assistant_output["assistant_output"]["changes"] = content[file_changes + len("**Changes Introduced:**"):potential_impact].strip().replace("\\n", "\n").replace("\\'", "'")
-                assistant_output["assistant_output"]["summary"] = content[potential_impact + len("**Potential Impacts**"):].strip().replace("\\n", "\n").replace("\\'", "'")
-                print(assistant_output)
+            #     assistant_output["assistant_output"]["filename"] = content[file_name:file_changes].strip().replace("\\n", "\n").replace("\\'", "'")
+            #     assistant_output["assistant_output"]["changes"] = content[file_changes + len("**Changes Introduced:**"):potential_impact].strip().replace("\\n", "\n").replace("\\'", "'")
+            #     assistant_output["assistant_output"]["summary"] = content[potential_impact + len("**Potential Impacts**"):].strip().replace("\\n", "\n").replace("\\'", "'")
+            #     print(assistant_output)

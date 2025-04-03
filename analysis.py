@@ -112,7 +112,7 @@ if run.status == "completed":
                 output_behaviour = content.fine("**Output Behavior**")
                 considerations = content.fine("**Contextual Considerations**")
                 best_practice = content.fine("**Best Practices Check**")
-                hardcoding = content.fine(**Hardcoded Passwords**)
+                hardcoding = content.fine("**Hardcoded Passwords**)
                 error_handling = content.fine("**Error Handling**")                
                 code_type = content.find("**Code Type**")
                 

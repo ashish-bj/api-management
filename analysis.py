@@ -100,3 +100,4 @@ if run.status == "completed":
     for msg in messages:
         if msg.role == "assistant":
             content = msg.content
+            print(content)

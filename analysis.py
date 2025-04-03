@@ -101,3 +101,22 @@ if run.status == "completed":
         if msg.role == "assistant":
             content = msg.content
             print(content)
+            if isinstance(content, list):
+                content = "\n".join(str(item) for item in content)  # Join list items into a single string
+            content = str(content)  # Convert content to string
+            # Parse the content to extract explanation, cause, and solution
+            if "**File Name:**" in content:
+                file_mame = content.find("**File Name:**") + len("**File Name:**")
+                file_changes = content.find("**Changes Introduced:**")
+                potential_impact = content.find("**Potential Impacts**")
+                output_behaviour = content.fine("**Output Behavior**")
+                considerations = content.fine("**Contextual Considerations**")
+                best_practice = content.fine("**Best Practices Check**")
+                hardcoding = content.fine(**Hardcoded Passwords**)
+                error_handling = content.fine("**Error Handling**")                
+                code_type = content.find("**Code Type**")
+                
+                assistant_output["assistant_output"]["filename"] = content[file_name:file_changes].strip().replace("\\n", "\n").replace("\\'", "'")
+                assistant_output["assistant_output"]["changes"] = content[file_changes + len("**Changes Introduced:**"):potential_impact].strip().replace("\\n", "\n").replace("\\'", "'")
+                assistant_output["assistant_output"]["summary"] = content[potential_impact + len("**Potential Impacts**"):].strip().replace("\\n", "\n").replace("\\'", "'")
+        print(assistant_output)

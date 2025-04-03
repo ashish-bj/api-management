@@ -90,7 +90,7 @@ message = client.beta.threads.messages.create(
 run = client.beta.threads.runs.create_and_poll(
     thread_id=thread.id,  # ID of the thread
     assistant_id=assistant.id,  # ID of the assistant
-    instructions="Provide concise and actionable insights. Short summary with what has changed, potential impacts, syntax, code type, check if best practice is not followed, check for potential bug or vulernability, and highlight if passwords are hardcoded"  # Instructions for the assistant
+    instructions="Provide short summary with what has changed, what code is doing, potential impacts of the code, highlight syntax errors, explain type of code, highlight if best practices are not followed, check for potential bugs or vulernabilities, and highlight if passwords are hardcoded"  # Instructions for the assistant
 )
 
 if run.status == "completed":
@@ -113,9 +113,9 @@ if run.status == "completed":
             print("hi")
             print(content)
             # Parse the content to extract explanation, cause, and solution
-            # if "**File Name:**" in content:
-            #     file_name = content.find("**File Name:**") + len("**File Name:**")
-            #     file_changes = content.find("**Changes Introduced:**")
+            # if "File:" in content:
+            #     file_name = content.find("File:") + len("File:")
+            #     file_changes = content.find("Changes:")
             #     potential_impact = content.find("**Potential Impacts**")
             #     # output_behaviour = content.fine("**Output Behavior**")
             #     # considerations = content.fine("**Contextual Considerations**")

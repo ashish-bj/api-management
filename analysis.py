@@ -119,4 +119,4 @@ if run.status == "completed":
                 assistant_output["assistant_output"]["filename"] = content[file_name:file_changes].strip().replace("\\n", "\n").replace("\\'", "'")
                 assistant_output["assistant_output"]["changes"] = content[file_changes + len("**Changes Introduced:**"):potential_impact].strip().replace("\\n", "\n").replace("\\'", "'")
                 assistant_output["assistant_output"]["summary"] = content[potential_impact + len("**Potential Impacts**"):].strip().replace("\\n", "\n").replace("\\'", "'")
-        print(assistant_output)
+                print(assistant_output)

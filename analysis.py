@@ -100,10 +100,12 @@ if run.status == "completed":
     for msg in messages:
         if msg.role == "assistant":
             content = msg.content
-            print(content)
+            #print(content)
             if isinstance(content, list):
                 content = "\n".join(str(item) for item in content)  # Join list items into a single string
             content = str(content)  # Convert content to string
+            print("hi")
+            print(content)
             # Parse the content to extract explanation, cause, and solution
             if "**File Name:**" in content:
                 file_mame = content.find("**File Name:**") + len("**File Name:**")

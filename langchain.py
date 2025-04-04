@@ -3,6 +3,7 @@ import re
 import requests
 from langchain_openai import ChatOpenAI
 from langchain.schema.messages import HumanMessage
+from langchain_core.messages import HumanMessage
 
 # GitHub API token (personal access token with the necessary permissions)
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")

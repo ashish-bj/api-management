@@ -130,7 +130,8 @@ if run.status == "completed":
                 # code_type = content.find("**Code Type**")
                 
                 assistant_output["assistant_output"]["files"] = content[file_start:changes_start].strip().replace("\\n", "\n").replace("\\'", "'")
-                assistant_output["assistant_output"]["summary"] = content[summary_start + len("Summary:"):].strip().replace("\\n", "\n").replace("\\'", "'")
+                #assistant_output["assistant_output"]["summary"] = content[summary_start + len("Summary:"):].strip().replace("\\n", "\n").replace("\\'", "'")
+                assistant_output["assistant_output"]["summary"] = content[summary_start + len("Summary:"):].strip().replace("\\n", " ").replace("\\'", "'").replace("\n", " ")
                 #assistant_output["assistant_output"]["summary"] = content[potential_impact + len("**Potential Impacts**"):].strip().replace("\\n", "\n").replace("\\'", "'")
                 print(assistant_output)
     # Write the assistant's output to a JSON file

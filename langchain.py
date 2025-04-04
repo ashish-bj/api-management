@@ -1,22 +1,16 @@
 import os
-import json
 import re
 import requests
-from openai import AzureOpenAI
 from langchain_openai import ChatOpenAI
 from langchain.schema.messages import HumanMessage
 
-# Retrieve environment variables from Azure DevOps pipeline variables
-# Assuming the variables are set in the pipeline as AZURE_OPENAI_API_KEY and AZURE_OPENAI_ENDPOINT
-#api_key = os.getenv("AZURE-OPENAI-API-KEY")
-#azure_endpoint = os.getenv("AZURE-OPENAI-ENDPOINT")
+# GitHub API token (personal access token with the necessary permissions)
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
-GITHUB_ORGANIZATION= os.getenv("GITHUB_ORGANIZATION")
+# GitHub repository information
+OWNER = os.getenv("GITHUB_ORGANIZATION")
 REPO = os.getenv("GITHUB_REPOSITORY")  # Format: "owner/repo"
-PR_NUMBER = os.getenv("PR_NUMBER")
+PR_NUMBER = 12  # PR number (replace with the PR you want to inspect)
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-
-#print(azure_endpoint)
 
 # Set up the headers with the authentication token
 headers = {
@@ -25,28 +19,46 @@ headers = {
 }
 
 # GitHub API endpoint to get PR details
-pr_url = f"https://api.github.com/repos/ashish-bj/{REPO}/pulls/{PR_NUMBER}/files"
+pr_url = f"https://api.github.com/repos/{OWNER}/{REPO}/pulls/{PR_NUMBER}/files"
 
 # Fetch PR details
 response = requests.get(pr_url, headers=headers)
 
 if response.status_code == 200:
     pr_data = response.json()
-    print(pr_data)
     
-    # Fetch the list of changed files in the PR
-    files = response.json()
+    print("Pull Request Files and Changes:")
+
+    # List to store file changes
     changes = []
-    
-    for file in files:
+
+    # Process files and extract patches
+    for file in pr_data:
         filename = file["filename"]
         patch = file.get("patch", "")  # Contains code diffs
-        #print(patch)
         cleaned_text = re.sub(r"^@@.*@@\n?", "", patch, flags=re.MULTILINE)
         changes.append(f"File: {filename}\nChanges:\n{cleaned_text}\n\n")
-        
-        #print("file " + filename +" has following changes:")
-        #print(cleaned_text)
-        #print(filename)
-        #print(patch)
-        print(changes)
+    
+    print("\n".join(changes))
+
+    # Initialize LangChain model
+    llm = ChatOpenAI(model="gpt-4o", openai_api_key=OPENAI_API_KEY)
+
+    # Prepare prompt with changes from PR
+    prompt = (
+        "You are a codeowner reviewing a pull request. "
+        "Analyze the following code changes and summarize them in simple terms. "
+        "Explain what has changed, why it might have been changed, and any potential impacts. "
+        "Check for syntax, identify code type, check if best practices are followed, check for potential bugs, and highlight if passwords are hardcoded.\n\n"
+        f"{' '.join(changes)}"
+    )
+
+    # Send the request to LangChain model for analysis
+    response = llm([HumanMessage(content=prompt)])
+
+    # Print the model's analysis
+    print("\nAnalysis of the PR Changes:")
+    print(response.content)
+
+else:
+    print(f"Error: Unable to fetch pull request details. Status Code: {response.status_code}")

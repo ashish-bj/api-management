@@ -1,0 +1,60 @@
+import os
+from langchain_openai import AzureChatOpenAI
+
+api_key = os.getenv("AZURE-OPENAI-API-KEY")
+azure_endpoint = os.getenv("AZURE-OPENAI-ENDPOINT")
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
+GITHUB_ORGANIZATION= os.getenv("GITHUB_ORGANIZATION")
+REPO = os.getenv("GITHUB_REPOSITORY")  # Format: "owner/repo"
+PR_NUMBER = os.getenv("PR_NUMBER")
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+
+if not api_key or not azure_endpoint:
+    raise ValueError("Azure OpenAI API key and endpoint must be set in the environment variables.")
+  
+#os.environ["AZURE_OPENAI_ENDPOINT"] = "https://YOUR-ENDPOINT.openai.azure.com/"
+
+headers = {
+    "Authorization": f"token {GITHUB_TOKEN}",
+    "Accept": "application/vnd.github.v3+json"
+}
+
+# GitHub API endpoint to get PR details
+pr_url = f"https://api.github.com/repos/ashish-bj/{REPO}/pulls/{PR_NUMBER}/files"
+
+# Fetch PR details
+response = requests.get(pr_url, headers=headers)
+if response.status_code == 200:
+    pr_data = response.json()
+    print(pr_data)
+    # Fetch the list of changed files in the PR
+     files = response.json()
+     changes = []
+     for file in files:
+        filename = file["filename"]
+        patch = file.get("patch", "")  # Contains code diffs
+        #print(patch)
+        cleaned_text = re.sub(r"^@@.*@@\n?", "", patch, flags=re.MULTILINE)
+        changes.append(f"File: {filename}\nChanges:\n{cleaned_text}\n\n")
+        print(changes)
+       
+llm = AzureChatOpenAI(
+    azure_deployment="gpt-4o",  # or your deployment
+    api_version="2024-05-01-preview",  # or your api version
+    temperature=0,
+    max_tokens=None,
+    timeout=None,
+    max_retries=2,
+    # other params...
+)
+
+messages = [
+    (
+        "system",
+        "You are a helpful assistant that review github pull requests. You analyze the code changes and provide insights. You identify code type, check for syntax errors, explain what changes are about, check for vulnerabilities or potential bug & also check for hardcoded passwords.",
+    ),
+    (changes),
+]
+ai_msg = llm.invoke(messages)
+ai_msg
+print(ai_msg.content)

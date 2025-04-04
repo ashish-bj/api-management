@@ -32,11 +32,10 @@ response = requests.get(pr_url, headers=headers)
 
 if response.status_code == 200:
     pr_data = response.json()
-
     print(pr_data)
-
+    
     # Fetch the list of changed files in the PR
-     files = response.json()
+    files = response.json()
     changes = []
     
     for file in files:
@@ -50,4 +49,4 @@ if response.status_code == 200:
         #print(cleaned_text)
         #print(filename)
         #print(patch)
-    print(changes)
+        print(changes)

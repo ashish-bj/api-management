@@ -3,6 +3,8 @@ import json
 import re
 import requests
 from openai import AzureOpenAI
+from langchain_openai import ChatOpenAI
+from langchain.schema.messages import HumanMessage
 
 # Retrieve environment variables from Azure DevOps pipeline variables
 # Assuming the variables are set in the pipeline as AZURE_OPENAI_API_KEY and AZURE_OPENAI_ENDPOINT
@@ -67,7 +69,7 @@ os.environ["AZURE_OPENAI_ENDPOINT"] = azure_endpoint
 client = AzureOpenAI(
     api_key=os.environ["AZURE_OPENAI_API_KEY"],
     azure_endpoint=os.environ["AZURE_OPENAI_ENDPOINT"],
-    api_version="2024-05-01-preview",  # Specify the API version to use
+    api_version="2024-06-01-preview",  # Specify the API version to use
 )
 assistant = client.beta.assistants.create(
     name="CI/CD Troubleshooting Assistant",  # Name of the assistant

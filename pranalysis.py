@@ -40,7 +40,7 @@ if response.status_code == 200:
         cleaned_text = re.sub(r"^@@.*@@\n?", "", patch, flags=re.MULTILINE)
         changes.append(f"File: {filename}\nChanges:\n{cleaned_text}\n\n")
         # Convert to string
-        diff_text = "\n".join(code_diff_lines)
+        diff_text = "\n".join(changes)
         print(diff_text)
         
 # client = AzureOpenAI(

@@ -60,9 +60,12 @@ llm = AzureChatOpenAI(
 )
 
 messages = [
-    (
-        "system",
-        "You are a helpful assistant that review github pull requests. You analyze the code changes and provide insights. You identify code type, check for syntax errors, explain what changes are about, check for vulnerabilities or potential bug & also check for hardcoded passwords.",
+
+    SystemMessage(
+        content="You are a pull request reviwer!"
+    ),
+    HumanMessage(
+        content="You are a helpful assistant that review github pull requests. You analyze the code changes and provide insights. You identify code type, check for syntax errors, explain what changes are about, check for vulnerabilities or potential bug & also check for hardcoded passwords."
     ),
     (changes),
 ]

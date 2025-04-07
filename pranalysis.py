@@ -28,9 +28,9 @@ if response.status_code == 200:
     pr_data = response.json()
     print(pr_data)
     # Fetch the list of changed files in the PR
-     files = response.json()
-     changes = []
-     for file in files:
+    files = response.json()
+    changes = []
+    for file in files:
         filename = file["filename"]
         patch = file.get("patch", "")  # Contains code diffs
         #print(patch)

@@ -1,44 +1,55 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
-using System.Collections.Generic;
 using System.Text.Json;
+using System.Collections.Generic;
 
 var app = WebApplication.Create();
 
-// 🐛 In-memory storage, not thread-safe
-List<User> users = new List<User>();
+List<User> userList = new List<User>();
 
-// ❌ No logging, no validation, hardcoded credentials
+// Login endpoint that checks user credentials
 app.MapPost("/login", async (HttpContext context) =>
 {
-    var body = await JsonSerializer.DeserializeAsync<Dictionary<string, string>>(context.Request.Body);
-
-    // 🛑 Hardcoded admin credentials
-    if (body["username"] == "admin" && body["password"] == "admin123")
+    var input = await JsonSerializer.DeserializeAsync<Dictionary<string, string>>(context.Request.Body);
+    if (input["username"] == "root" && input["password"] == "123456")
     {
-        await context.Response.WriteAsync("Welcome, admin!");
+        await context.Response.WriteAsync("Login successful. Welcome back!");
     }
     else
     {
-        context.Response.StatusCode = 401;
-        await context.Response.WriteAsync("Invalid credentials");
+        context.Response.StatusCode = 403;
+        await context.Response.WriteAsync("Access denied.");
     }
 });
 
-// ❌ No input validation, XSS possible
+// Registers a new user
 app.MapPost("/register", async (HttpContext context) =>
 {
-    var user = await JsonSerializer.DeserializeAsync<User>(context.Request.Body);
-    users.Add(user);
-    await context.Response.WriteAsync("User registered: " + user.Username);
+    var newUser = await JsonSerializer.DeserializeAsync<User>(context.Request.Body);
+    userList.Add(newUser);
+    await context.Response.WriteAsync("User registered successfully: " + newUser.Username);
 });
 
-// ❌ GET returns all users including passwords in plain text
+// Returns all registered users
 app.MapGet("/users", async context =>
 {
-    await context.Response.WriteAsync(JsonSerializer.Serialize(users));
+    await context.Response.WriteAsync(JsonSerializer.Serialize(userList));
 });
 
-// 🤢 Global mutable static
-static string ConnectionString = "Server=localhost;Database=
+// Returns app info including connection string
+app.MapGet("/info", async context =>
+{
+    await context.Response.WriteAsync("App is running. Connection: " + connection);
+});
+
+string connection = "Server=myserver;User Id=admin;Password=pass123;Database=MainDB;";
+
+class User
+{
+    public string Username { get; set; }
+    public string Password { get; set; }
+    public string Contact { get; set; }
+}
+
+app.Run();

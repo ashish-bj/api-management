@@ -39,10 +39,18 @@ if response.status_code == 200:
         cleaned_text = re.sub(r"^@@.*@@\n?", "", patch, flags=re.MULTILINE)
         changes.append(f"File: {filename}\nChanges:\n{cleaned_text}\n\n")
         print(changes)
+        
+# client = AzureOpenAI(
+#     api_key=os.environ["AZURE_OPENAI_API_KEY"],
+#     azure_endpoint=os.environ["AZURE_OPENAI_ENDPOINT"],
+#     api_version="2024-05-01-preview",  # Specify the API version to use
+# )
        
-llm = AzureChatOpenAI(
+llm = AzureOpenAI(
     azure_deployment="gpt-4o",  # or your deployment
     api_version="2024-12-01-preview",  # or your api version
+    api_key=os.environ["AZURE_OPENAI_API_KEY"],
+    azure_endpoint=os.environ["AZURE_OPENAI_ENDPOINT"],
     temperature=0,
     max_tokens=None,
     timeout=None,

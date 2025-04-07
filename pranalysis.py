@@ -1,4 +1,5 @@
 import os
+import requests
 from langchain_openai import AzureChatOpenAI
 
 api_key = os.getenv("AZURE-OPENAI-API-KEY")

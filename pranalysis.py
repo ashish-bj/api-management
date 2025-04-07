@@ -46,7 +46,7 @@ if response.status_code == 200:
 #     api_version="2024-05-01-preview",  # Specify the API version to use
 # )
        
-llm = AzureOpenAI(
+llm = AzureChatOpenAI(
     azure_deployment="gpt-4o",  # or your deployment
     api_version="2024-12-01-preview",  # or your api version
     api_key=os.environ["AZURE_OPENAI_API_KEY"],

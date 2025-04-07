@@ -2,7 +2,7 @@ import os
 import requests
 import re
 from langchain_openai import AzureChatOpenAI
-from langchain_core.messages import HumanMessage
+from langchain_core.messages import HumanMessage, SystemMessage
 
 api_key = os.getenv("AZURE-OPENAI-API-KEY")
 azure_endpoint = os.getenv("AZURE-OPENAI-ENDPOINT")

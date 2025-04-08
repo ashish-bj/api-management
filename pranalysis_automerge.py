@@ -72,15 +72,15 @@ messages = [
     HumanMessage(content=diff_text),
 ]
 ai_msg = llm.invoke(messages)
-ai_msg
+#ai_msg
 print(ai_msg.content)
 
 #check for pr review outcome
-with open('output.log') as f:
-    if 'Merge Pull Request = No' in f.read():
-        print("true")
-        pr-url = f"https://api.github.com/repos/ashish-bj/{REPO}/pulls/{PR_NUMBER}"
-        payload = {
-            "state":"closed"  # Replace with {} if you want to clear it
-        }
-        requests.patch(pr-url, headers=headers, json=payload)
+# with open('output.log') as f:
+#     if 'Merge Pull Request = No' in f.read():
+#         print("true")
+#         pr-url = f"https://api.github.com/repos/ashish-bj/{REPO}/pulls/{PR_NUMBER}"
+#         payload = {
+#             "state":"closed"  # Replace with {} if you want to clear it
+#         }
+#         requests.patch(pr-url, headers=headers, json=payload)

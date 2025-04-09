@@ -80,20 +80,19 @@ print(ai_msg.content)
 #with open('output.log') as f:
 if 'Merge-Pull-Request=No' in ai_msg.content:
     print("can't merge!")
+    
+    #comment on pr
+    prcomment = f"https://api.github.com/repos/ashish-bj/{REPO}/pulls/{PR_NUMBER}/comments"
+    payload1 = {
+        "body": ai_msg.content
+    }
+    requests.post(prcomment, headers=headers, json=payload1)
+
+    #close the pr
     prurl = f"https://api.github.com/repos/ashish-bj/{REPO}/pulls/{PR_NUMBER}"
     payload = {
         "state":"closed"  # Replace with {} if you want to clear it
     }
-    
-    prcomment = f"https://api.github.com/repos/ashish-bj/{REPO}/pulls/{PR_NUMBER}/comments"
-    payload1 = {
-        "body":"ai_msg.content"
-    }
-
-    #comment on pr
-    requests.post(prcomment, headers=headers, json=payload1)
-
-    #close the pr    
     requests.patch(prurl, headers=headers, json=payload)
 elif 'Merge-Pull-Request=Yes' in ai_msg.content:
      print("can merge!")

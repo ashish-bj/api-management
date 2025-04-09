@@ -82,7 +82,7 @@ if 'Merge-Pull-Request=No' in ai_msg.content:
     print("can't merge!")
     
     #comment on pr
-    prcomment = f"https://api.github.com/repos/ashish-bj/{REPO}/pulls/{PR_NUMBER}/comments"
+    prcomment = f"https://api.github.com/repos/ashish-bj/{REPO}/issues/{PR_NUMBER}/comments"
     payload1 = {
         "body": ai_msg.content
     }

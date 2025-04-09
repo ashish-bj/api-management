@@ -85,6 +85,13 @@ if 'Merge Pull Request = No' in ai_msg.content:
     payload = {
         "state":"closed"  # Replace with {} if you want to clear it
     }
+    pr_comment = f"https://api.github.com/repos/ashish-bj/{REPO}/pulls/{PR_NUMBER}/comments"
+    payload1 = {
+        "body":"ai_msg.content"  # Replace with {} if you want to clear it
+    }
+    #comment pull request
+    requests.patch(pr_comment, headers=headers, json=payload1)
+    #close pull request
     requests.patch(prurl, headers=headers, json=payload)
 elif 'Merge Pull Request = Yes' in ai_msg.content:
      print("can merge!")

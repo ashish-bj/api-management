@@ -67,7 +67,7 @@ messages = [
         content="You are a pull request reviwer!"
     ),
     HumanMessage(
-        content="You are a helpful assistant that review github pull requests. You analyze the code changes and provide insights. check for syntax errors, explain what changes are about & its impact, check for vulnerabilities or potential bug & also check for hardcoded passwords. provide summary in shortest possible format for codeowners to make decision of approve pull request or not. Depending upon critical issues observed, conclude summary with 'Merge Pull Reuest = Yes' or 'Merge Pull Request = No' "
+        content="You are a helpful assistant that review github pull requests. You analyze the code changes and provide insights. check for syntax errors, explain what changes are about & its impact, check for vulnerabilities or potential bug & also check for hardcoded passwords. provide summary in shortest possible format for codeowners to make decision of approve pull request or not. If no fuctional issues, bug, vulnerability or hardcoded password observed then conclude summary with 'Merge Pull Reuest = Yes' else mention 'Merge Pull Request = No' "
     ),
     HumanMessage(content=diff_text),
 ]

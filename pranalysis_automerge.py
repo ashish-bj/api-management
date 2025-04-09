@@ -92,7 +92,7 @@ if 'Merge Pull Request = No' in ai_msg.content:
     }
 
     #comment on pr
-    requests.patch(prcomment, headers=headers, json=payload1)
+    requests.post(prcomment, headers=headers, json=payload1)
 
     #close the pr    
     requests.patch(prurl, headers=headers, json=payload)

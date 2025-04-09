@@ -80,9 +80,16 @@ print(ai_msg.content)
 #check for pr review outcome
 #with open('output.log') as f:
 if 'Merge Pull Request = No' in ai_msg.content:
-    print("true")
+    print("can't merge!")
     prurl = f"https://api.github.com/repos/ashish-bj/{REPO}/pulls/{PR_NUMBER}"
     payload = {
         "state":"closed"  # Replace with {} if you want to clear it
     }
     requests.patch(prurl, headers=headers, json=payload)
+elseif 'Merge Pull Request = Yes' in ai_msg.content:
+     print("can merge!")
+     prurl = f"https://api.github.com/repos/ashish-bj/{REPO}/pulls/{PR_NUMBER}"
+     payload = {
+        "auto_merge":"true"  # Replace with {} if you want to clear it
+     }     
+    

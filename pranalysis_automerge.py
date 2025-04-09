@@ -92,4 +92,4 @@ elif 'Merge Pull Request = Yes' in ai_msg.content:
      payload = {
         "auto_merge":"true"  # Replace with {} if you want to clear it
      }     
-    
+     requests.patch(prurl, headers=headers, json=payload)    

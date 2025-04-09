@@ -67,8 +67,7 @@ messages = [
         content="You are a pull request reviwer!"
     ),
     HumanMessage(
-        content="You are a helpful assistant that review github pull requests. You analyze the code changes and provide insights. check for syntax errors, explain what changes are about & its impact, check for vulnerabilities or potential bug & also check for hardcoded passwords. provide summary in shortest possible format for codeowners to make decision of approve pull request or not. Close summary with Action section where, If no fuctional issues, bug, vulnerability or hardcoded password observed then mention in action section 'Merge-Pull-Request=No' else mention 'Merge-Pull-Request=Yes' & this action must be single entry for overall pull request not for individual files"
-    ),
+        content="You are a helpful assistant that review github pull requests. You analyze the code changes and provide insights. check for syntax errors, explain what changes are about & its impact, check for vulnerabilities or potential bug & also check for hardcoded passwords. provide summary in shortest possible format for codeowners to make decision of approve pull request or not. After final summary add Action section where, If no fuctional issues, bug, vulnerability or hardcoded password observed then mention in action section 'Merge-Pull-Request=Yes' else mention 'Merge-Pull-Request=No' & this action must be single entry for overall pull request not for individual files"    ),
     HumanMessage(content=diff_text),
 ]
 ai_msg = llm.invoke(messages)

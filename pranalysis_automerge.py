@@ -78,7 +78,7 @@ print(ai_msg.content)
 
 #check for pr review outcome
 #with open('output.log') as f:
-if 'Merge Pull Request = No' in ai_msg.content:
+if 'Merge-Pull-Request=No' in ai_msg.content:
     print("can't merge!")
     prurl = f"https://api.github.com/repos/ashish-bj/{REPO}/pulls/{PR_NUMBER}"
     payload = {
@@ -95,7 +95,7 @@ if 'Merge Pull Request = No' in ai_msg.content:
 
     #close the pr    
     requests.patch(prurl, headers=headers, json=payload)
-elif 'Merge Pull Request = Yes' in ai_msg.content:
+elif 'Merge-Pull-Request=Yes' in ai_msg.content:
      print("can merge!")
      prurl = f"https://api.github.com/repos/ashish-bj/{REPO}/pulls/{PR_NUMBER}"
      payload = {

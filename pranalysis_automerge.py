@@ -86,7 +86,7 @@ if 'Merge Pull Request = No' in ai_msg.content:
         "state":"closed"  # Replace with {} if you want to clear it
     }
     requests.patch(prurl, headers=headers, json=payload)
-elseif 'Merge Pull Request = Yes' in ai_msg.content:
+elif 'Merge Pull Request = Yes' in ai_msg.content:
      print("can merge!")
      prurl = f"https://api.github.com/repos/ashish-bj/{REPO}/pulls/{PR_NUMBER}"
      payload = {

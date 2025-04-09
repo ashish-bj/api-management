@@ -29,7 +29,7 @@ pr_url = f"https://api.github.com/repos/ashish-bj/{REPO}/pulls/{PR_NUMBER}/files
 response = requests.get(pr_url, headers=headers)
 if response.status_code == 200:
     pr_data = response.json()
-    print(pr_data)
+    #print(pr_data)
     # Fetch the list of changed files in the PR
     files = response.json()
     changes = []

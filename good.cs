@@ -1,145 +1,53 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Microsoft.Data.SqlClient;
 
-namespace GoodCode
+namespace CleanCodeSample
 {
     public class Program
     {
-        private static readonly string ConnectionString = Environment.GetEnvironmentVariable("DB_CONNECTION") ?? "";
-        private static readonly string ApiKey = Environment.GetEnvironmentVariable("API_KEY") ?? "";
-
         public static async Task Main(string[] args)
         {
-            Console.WriteLine("Program started");
-            var usernames = GenerateUsernames(50);
+            Console.WriteLine("Application started.");
+            var people = GenerateSamplePeople();
+            var json = JsonSerializer.Serialize(people, new JsonSerializerOptions { WriteIndented = true });
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "people.json");
 
-            var results = await FetchDataFromApiAsync(usernames);
-            await SaveToFilesAsync(results);
+            await File.WriteAllTextAsync(filePath, json);
+            Console.WriteLine($"Data saved to {filePath}");
 
-            var emails = await GetUserEmailsAsync("admin", "adminpass");
-            Console.WriteLine($"Fetched {emails.Count} emails.");
+            var readJson = await File.ReadAllTextAsync(filePath);
+            var deserializedPeople = JsonSerializer.Deserialize<List<Person>>(readJson);
 
-            var outputFile = "output.log";
-            await File.WriteAllTextAsync(outputFile, string.Join("\n", emails));
-
-            await ExecuteAdditionalTasks();
-        }
-
-        private static List<string> GenerateUsernames(int count)
-        {
-            var list = new List<string>();
-            for (int i = 0; i < count; i++)
+            Console.WriteLine("Loaded people from file:");
+            foreach (var person in deserializedPeople!)
             {
-                list.Add($"user{i}");
-            }
-            return list;
-        }
-
-        private static async Task<List<string>> FetchDataFromApiAsync(List<string> usernames)
-        {
-            var client = new HttpClient();
-            var results = new List<string>();
-
-            foreach (var user in usernames)
-            {
-                var response = await client.GetAsync($"https://api.fake.com/data?key={ApiKey}&query={user}");
-                if (response.IsSuccessStatusCode)
-                {
-                    var data = await response.Content.ReadAsStringAsync();
-                    results.Add(data);
-                }
-            }
-
-            return results;
-        }
-
-        private static async Task SaveToFilesAsync(List<string> contents)
-        {
-            for (int i = 0; i < contents.Count; i++)
-            {
-                var filename = $"data_{i}.txt";
-                await File.WriteAllTextAsync(filename, contents[i]);
+                Console.WriteLine($"{person.FirstName} {person.LastName}, Age: {person.Age}, Email: {person.Email}");
             }
         }
 
-        private static async Task<List<string>> GetUserEmailsAsync(string username, string password)
+        private static List<Person> GenerateSamplePeople()
         {
-            var emails = new List<string>();
-
-            var query = "SELECT email FROM Users WHERE username=@username AND password=@password";
-            await using var connection = new SqlConnection(ConnectionString);
-            await connection.OpenAsync();
-
-            await using var command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@username", username);
-            command.Parameters.AddWithValue("@password", password);
-
-            await using var reader = await command.ExecuteReaderAsync();
-            while (await reader.ReadAsync())
+            var people = new List<Person>
             {
-                emails.Add(reader.GetString(0));
-            }
+                new Person { FirstName = "Alice", LastName = "Johnson", Age = 30, Email = "alice@example.com" },
+                new Person { FirstName = "Bob", LastName = "Smith", Age = 42, Email = "bob@example.com" },
+                new Person { FirstName = "Charlie", LastName = "Brown", Age = 27, Email = "charlie@example.com" },
+                new Person { FirstName = "Diana", LastName = "Prince", Age = 35, Email = "diana@example.com" },
+                new Person { FirstName = "Eve", LastName = "Stone", Age = 23, Email = "eve@example.com" }
+            };
 
-            return emails;
-        }
-
-        private static async Task ExecuteAdditionalTasks()
-        {
-            await Task.WhenAll(
-                Task.Run(() => ProcessBatch("Task1")),
-                Task.Run(() => ProcessBatch("Task2")),
-                Task.Run(() => ProcessBatch("Task3")),
-                Task.Run(() => ProcessBatch("Task4"))
-            );
-
-            for (int i = 0; i < 10; i++)
-            {
-                await ProcessNumbersAsync(i);
-            }
-
-            await LogJsonData();
-        }
-
-        private static void ProcessBatch(string name)
-        {
-            for (int i = 0; i < 100; i++)
-            {
-                Console.WriteLine($"{name}: Processing item {i}");
-            }
-        }
-
-        private static async Task ProcessNumbersAsync(int index)
-        {
-            await Task.Delay(100);
-            Console.WriteLine($"Processed number {index}");
-
-            var path = Path.Combine("numbers", $"num_{index}.txt");
-            Directory.CreateDirectory("numbers");
-            await File.WriteAllTextAsync(path, index.ToString());
-        }
-
-        private static async Task LogJsonData()
-        {
-            var data = new List<SampleData>();
-            for (int i = 0; i < 100; i++)
-            {
-                data.Add(new SampleData { Id = i, Name = $"Name{i}", Timestamp = DateTime.UtcNow });
-            }
-
-            var json = JsonSerializer.Serialize(data);
-            await File.WriteAllTextAsync("data.json", json);
+            return people;
         }
     }
 
-    public class SampleData
+    public class Person
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public DateTime Timestamp { get; set; }
+        public string FirstName { get; set; } = string.Empty;
+        public string LastName { get; set; } = string.Empty;
+        public int Age { get; set; }
+        public string Email { get; set; } = string.Empty;
     }
 }        

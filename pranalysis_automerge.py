@@ -51,7 +51,7 @@ if response.status_code == 200:
        
 llm = AzureChatOpenAI(
     azure_deployment="gpt-4o",  # or your deployment
-    api_version="2024-11-20",  # or your api version
+    api_version="2024-12-01-preview",  # or your api version
     api_key=os.environ["AZURE-OPENAI-API-KEY"],
     azure_endpoint=os.environ["AZURE-OPENAI-ENDPOINT"],
     temperature=0,
